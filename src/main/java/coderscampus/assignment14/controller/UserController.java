@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class UserController {
     @Autowired
     private UserService userService;
-    @GetMapping("welcome")
+    @GetMapping("/welcome")
     public String welcomeForm(){
+
         return "welcome";
     }
-    @PostMapping("welcome")
+    @PostMapping("/welcome")
     public String welcomeSubmit(@RequestParam String name){
         User user = userService.findByName(name);
         if (user == null){
