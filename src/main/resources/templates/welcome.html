@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>welcome</title>
+    <script>
+        function setUser() {
+            const name = document.getElementById('name').value;
+            if (name) {
+                sessionStorage.setItem('userName', name);
+                window.location.href = '/channels';
+            }
+        }
+    </script>
 </head>
 <body>
     <h1> Join A Channel</h1>
     <div>
-    <a href="/chanlle/1">General</a>
+        <form onsubmit="setUser(); return false;">
+            <label for="name">Enter your name:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="submit">Join</button>
+        </form>
     </div>
     <div>
-        <script type="text/javascript" src="/welcome.js"></script>
+        <a href="/chanlle/1">General</a>
     </div>
+
+     <!--   <script type="text/javascript" src="/welcome.js"></script>-->
+
 </body>
 </html>
