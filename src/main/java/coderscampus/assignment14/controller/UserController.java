@@ -1,9 +1,11 @@
 package coderscampus.assignment14.controller;
 
+import ch.qos.logback.core.model.Model;
 import coderscampus.assignment14.domain.User;
 import coderscampus.assignment14.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +30,10 @@ public class UserController {
             userService.saveUser(user);
         }
         return"redirect:/channels";
+    }
+    @GetMapping("/channel")
+    public String channelPage(ModelMap model) {
+        model.put("channelId", "general");
+        return "channel";
     }
 }

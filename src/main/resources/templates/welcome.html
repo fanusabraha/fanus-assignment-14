@@ -2,31 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>welcome</title>
-    <script>
-        function setUser() {
-            const name = document.getElementById('name').value;
-            if (name) {
-                sessionStorage.setItem('userName', name);
-                window.location.href = '/channels';
-            }
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Username</title>
 </head>
 <body>
-    <h1> Join A Channel</h1>
-    <div>
-        <form onsubmit="setUser(); return false;">
-            <label for="name">Enter your name:</label>
-            <input type="text" id="name" name="name" required>
-            <button type="submit">Join</button>
-        </form>
-    </div>
-    <div>
-        <a href="/chanlle/1">General</a>
-    </div>
+<h1>This a group chat</h1>
+<form id="usernameForm">
+    <label for="username">Enter your username:</label>
+    <input type="text" id="username" name="username" required>
+    <button type="submit">Submit</button>
+</form>
 
-     <!--   <script type="text/javascript" src="/welcome.js"></script>-->
+<script>
+    //   Check for the saved username in local storage when the page loads
+    window.onload = function() {
+        var savedUsername = localStorage.getItem('username');
+        if (savedUsername) {
+            alert('Username: ' + savedUsername);
+        }
+    };
 
+    document.getElementById('usernameForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent the form from submitting in the traditional way
+
+        // Get the username from the input field
+        var username = document.getElementById('username').value;
+
+        // Save the username to local storage
+        localStorage.setItem('username', username);
+
+        // Optional: Clear the input field
+        document.getElementById('username').value = '';
+    });
+</script>
 </body>
 </html>
