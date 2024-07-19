@@ -1,10 +1,13 @@
 package coderscampus.assignment14.controller;
 
-import ch.qos.logback.core.model.Model;
+
+import coderscampus.assignment14.channelRepository.ChannelRepository;
 import coderscampus.assignment14.domain.User;
 import coderscampus.assignment14.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +19,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ChannelRepository channelRepository;
     @GetMapping("/welcome")
-    public String welcomeForm(){
+    public String welcome(HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            return "welcome";
+        }
 
-        return "welcome";
+        model.addAttribute("channels", channelRepository.getAllChannels());
+        return "channelList";
     }
     @PostMapping("/welcome")
     public String welcomeSubmit(@RequestParam String name){
