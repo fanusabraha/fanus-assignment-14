@@ -32,12 +32,14 @@ public class UserController {
         return "channelList";
     }
     @PostMapping("/welcome")
-    public String welcomeSubmit(@RequestParam String name){
-        User user = userService.findByName(name);
-        if (user == null){
-            user = new User();
+    public String welcomeSubmit(@RequestParam String name, HttpSession session){
+            String userId = UUID.randomUUID().toString();
+            User user = new User();
+            user.setId(userId);
             user.setName(name);
-            userService.saveUser(user);
+            userRepository.addUser(user);
+            session.setAttribute("userId", userId);
+            return "redirect:/";
         }
         return"redirect:/channels";
     }
