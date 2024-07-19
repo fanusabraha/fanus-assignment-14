@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Channel {
     private String username;
-    private int id;
+    private String id;
     private List<Message> messages = new ArrayList<>();
 
     public String getUsername() {
@@ -18,11 +18,11 @@ public class Channel {
         this.username = username;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
