@@ -41,8 +41,6 @@ public class UserController {
             session.setAttribute("userId", userId);
             return "redirect:/";
         }
-        return"redirect:/channels";
-    }
     @GetMapping("/channel")
     public String channelPage(ModelMap model) {
         model.put("channelId", "general");
