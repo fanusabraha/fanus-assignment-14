@@ -31,7 +31,7 @@ public class UserController {
         }
 
         model.addAttribute("channels", channelRepository.getAllChannels());
-        return "welcome";
+        return "channelList";
     }
     @PostMapping("/welcome")
     public String setName(@RequestParam String name, HttpSession session){
