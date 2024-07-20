@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("")
 public class UserController {
@@ -37,7 +39,7 @@ public class UserController {
             User user = new User();
             user.setId(userId);
             user.setName(name);
-            userRepository.addUser(user);
+            userService.saveUser(user);
             session.setAttribute("userId", userId);
             return "redirect:/";
         }
