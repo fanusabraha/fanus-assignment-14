@@ -31,10 +31,10 @@ public class UserController {
         }
 
         model.addAttribute("channels", channelRepository.getAllChannels());
-        return "channelList";
+        return "welcome";
     }
     @PostMapping("/welcome")
-    public String welcomeSubmit(@RequestParam String name, HttpSession session){
+    public String setName(@RequestParam String name, HttpSession session){
             String userId = UUID.randomUUID().toString();
             User user = new User();
             user.setId(userId);
