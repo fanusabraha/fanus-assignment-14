@@ -41,6 +41,15 @@ public class UserController {
             session.setAttribute("userId", userId);
             return "redirect:/";
         }
+    @PostMapping("/addChannel")
+    public String addChannel(@RequestParam String channelName) {
+        String channelId = UUID.randomUUID().toString();
+        Channel channel = new Channel();
+        channel.setId(channelId);
+        channel.setUsername(channelName);
+        channelRepository.addChannel(channel);
+        return "redirect:/";
+    }
     @GetMapping("/channels/{channelId}")
     public String channel(@PathVariable String channelId, HttpSession session, Model model) {
         String userId = (String) session.getAttribute("userId");
