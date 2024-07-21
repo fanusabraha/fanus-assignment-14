@@ -8,7 +8,7 @@ import java.util.List;
 public class Channel {
     private String username;
     private String id;
-    private List<Message> messages = new ArrayList<>();
+    private List<Messages> messages = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -26,11 +26,11 @@ public class Channel {
         this.id = id;
     }
 
-    public List<Message> getMessages() {
+    public List<Messages> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(List<Messages> messages) {
         this.messages = messages;
     }
 }
