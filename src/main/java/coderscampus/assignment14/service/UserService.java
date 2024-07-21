@@ -11,13 +11,15 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    public User saveUser (User user){
-        return userRepository.saveUser(user);
+    public void addUser (User user){
+         userRepository.addUser(user);
     }
     public Optional<User> getUserById(String id){
+
         return userRepository.getUserById(id);
     }
     public User findByName(String name){
+
         return userRepository.findByName(name);
     }
 

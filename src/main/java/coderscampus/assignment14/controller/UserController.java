@@ -38,7 +38,7 @@ public class UserController {
             User user = new User();
             user.setId(userId);
             user.setName(name);
-            userService.saveUser(user);
+            userService.addUser(user);
             session.setAttribute("userId", userId);
             return "redirect:/";
         }

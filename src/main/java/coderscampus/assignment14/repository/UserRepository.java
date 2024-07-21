@@ -10,10 +10,9 @@ import java.util.UUID;
 @Repository
 public class UserRepository {
     HashMap<String, User> users = new HashMap<>();
-    public User saveUser (User user){
+    public void addUser (User user){
         user.setId(UUID.randomUUID().toString());
         users.put(user.getId(),user);
-        return user;
     }
     public Optional<User> getUserById (String id){
         return Optional.of(users.get(id));
