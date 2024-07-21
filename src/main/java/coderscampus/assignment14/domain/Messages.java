@@ -1,6 +1,6 @@
 package coderscampus.assignment14.domain;
 
-public class Message {
+public class Messages {
     private String userId;
     private String userName;
     private String content;

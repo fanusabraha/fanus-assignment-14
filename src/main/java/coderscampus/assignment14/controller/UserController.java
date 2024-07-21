@@ -3,14 +3,13 @@ package coderscampus.assignment14.controller;
 
 import coderscampus.assignment14.channelRepository.ChannelRepository;
 import coderscampus.assignment14.domain.Channel;
-import coderscampus.assignment14.domain.Message;
+import coderscampus.assignment14.domain.Messages;
 import coderscampus.assignment14.domain.User;
 import coderscampus.assignment14.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -58,7 +57,7 @@ public class UserController {
         String userId = (String) session.getAttribute("userId");
         User user = userService.getUserById(userId).orElseThrow();
 
-        Message message = new Message();
+        Messages message = new Messages();
         message.setUserId(user.getId());
         message.setUserName(user.getName());
         message.setContent(content);
@@ -71,7 +70,7 @@ public class UserController {
 
     @GetMapping("/channels/{channelId}/messages")
     @ResponseBody
-    public Iterable<Message> getMessages(@PathVariable String channelId) {
+    public Iterable<Messages> getMessages(@PathVariable String channelId) {
         Channel channel = channelRepository.getChannelById(channelId).orElseThrow();
         return channel.getMessages();
     }
