@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -33,7 +30,7 @@ public class UserController {
         model.addAttribute("channels", channelRepository.getAllChannels());
         return "channelList";
     }
-    @PostMapping("/welcome")
+    @PostMapping("/setName")
     public String setName(@RequestParam String name, HttpSession session){
             String userId = UUID.randomUUID().toString();
             User user = new User();
@@ -43,9 +40,37 @@ public class UserController {
             session.setAttribute("userId", userId);
             return "redirect:/";
         }
-    @GetMapping("/channel")
-    public String channelPage(ModelMap model) {
-        model.put("channelId", "general");
+    @GetMapping("/channels/{channelId}")
+    public String channel(@PathVariable String channelId, HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("channelId", channelId);
         return "channel";
+    }
+
+    @PostMapping("/channels/{channelId}/sendMessage")
+    public String sendMessage(@PathVariable String channelId, @RequestParam String content, HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        User user = userService.findById(userId).orElseThrow();
+
+        Message message = new Message();
+        message.setUserId(user.getId());
+        message.setUserName(user.getName());
+        message.setContent(content);
+
+        Channel channel = channelRepository.getChannelById(channelId).orElseThrow();
+        channel.getMessages().add(message);
+
+        return "redirect:/channels/" + channelId;
+    }
+
+    @GetMapping("/channels/{channelId}/messages")
+    @ResponseBody
+    public Iterable<Message> getMessages(@PathVariable String channelId) {
+        Channel channel = channelRepository.getChannelById(channelId).orElseThrow();
+        return channel.getMessages();
     }
 }
