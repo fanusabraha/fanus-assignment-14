@@ -1,23 +1,22 @@
+<!-- src/main/resources/templates/channelList.html -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>ChatChannel</title>
-    <title>Channel</title>
-    <script>
-
-    </script>
+    <title>Channels</title>
 </head>
 <body>
-    <h1>Channel: general</h1>
-    <ul id="messageList"></ul>
-    <textarea id="messageInput" placeholder="Type your message..." rows="3"></textarea>
-    <button onclick="sendMessage()">Send</button>
-    <h1>Channels</h1>
-    <ul>
-        <li th:each="channel : ${channels}">
-            <a th:href="@{'/channels/' + ${channel.id}}" th:text="${channel.name}"></a>
-        </li>
-    </ul>
+<h1>Channels</h1>
+<ul>
+    <li th:each="channel : ${channels}">
+        <a th:href="@{'/channels/' + ${channel.id}}" th:text="${channel.name}"></a>
+    </li>
+</ul>
+
+<h2>Add a new channel</h2>
+<form action="/addChannel" method="post">
+    <label for="channelName">Channel name:</label>
+    <input type="text" id="channelName" name="channelName" required>
+    <button type="submit">Create Channel</button>
+</form>
 </body>
 </html>
