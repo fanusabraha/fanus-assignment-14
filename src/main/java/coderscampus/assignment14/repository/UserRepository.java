@@ -4,6 +4,7 @@ import coderscampus.assignment14.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -14,8 +15,8 @@ public class UserRepository {
         users.put(user.getId(),user);
         return user;
     }
-    public User findById (String id){
-        return users.get(id);
+    public Optional<User> getUserById (String id){
+        return Optional.of(users.get(id));
     }
     public User findByName (String name){
         return users.values().stream().filter(data->data.getName().equals(name)).findFirst().orElse(null);

@@ -5,6 +5,8 @@ import coderscampus.assignment14.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     @Autowired
@@ -12,8 +14,8 @@ public class UserService {
     public User saveUser (User user){
         return userRepository.saveUser(user);
     }
-    public User findById(String id){
-        return userRepository.findById(id);
+    public Optional<User> getUserById(String id){
+        return userRepository.getUserById(id);
     }
     public User findByName(String name){
         return userRepository.findByName(name);

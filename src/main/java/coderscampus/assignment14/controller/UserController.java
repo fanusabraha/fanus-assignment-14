@@ -2,6 +2,8 @@ package coderscampus.assignment14.controller;
 
 
 import coderscampus.assignment14.channelRepository.ChannelRepository;
+import coderscampus.assignment14.domain.Channel;
+import coderscampus.assignment14.domain.Message;
 import coderscampus.assignment14.domain.User;
 import coderscampus.assignment14.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -54,7 +56,7 @@ public class UserController {
     @PostMapping("/channels/{channelId}/sendMessage")
     public String sendMessage(@PathVariable String channelId, @RequestParam String content, HttpSession session) {
         String userId = (String) session.getAttribute("userId");
-        User user = userService.findById(userId).orElseThrow();
+        User user = userService.getUserById(userId).orElseThrow();
 
         Message message = new Message();
         message.setUserId(user.getId());
