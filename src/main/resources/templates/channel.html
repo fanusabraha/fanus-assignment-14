@@ -1,11 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>channel</title>
+    <title>Channel</title>
+    <script>
+        function pollMessages() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", window.location.pathname + "/messages", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var messages = JSON.parse(xhr.responseText);
+                    var messageBox = document.getElementById("messageBox");
+                    messageBox.innerHTML = "";
+                    messages.forEach(function (message) {
+                        var p = document.createElement("p");
+                        p.textContent = message.userName + ": " + message.content;
+                        messageBox.appendChild(p);
+                    });
+                }
+            };
+            xhr.send();
+        }
+
+        setInterval(pollMessages, 500);
+    </script>
 </head>
 <body>
+<div id="messageBox"></div>
+<form action="#" method="post" onsubmit="sendMessage(); return false;">
+    <textarea id="messageContent" required></textarea>
+    <button type="submit">Send</button>
+</form>
 
-
+<script>
+    function sendMessage() {
+        var content = document.getElementById("messageContent").value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", window.location.pathname + "/sendMessage", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("content=" + encodeURIComponent(content));
+        document.getElementById("messageContent").value = "";
+    }
+</script>
 </body>
 </html>
