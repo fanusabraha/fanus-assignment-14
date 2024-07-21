@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatChannel</title>
+    <title>Channel</title>
+    <script>
+
+    </script>
+</head>
+<body>
+    <h1>Channel: general</h1>
+    <ul id="messageList"></ul>
+    <textarea id="messageInput" placeholder="Type your message..." rows="3"></textarea>
+    <button onclick="sendMessage()">Send</button>
+    <h1>Channels</h1>
+    <ul>
+        <li th:each="channel : ${channels}">
+            <a th:href="@{'/channels/' + ${channel.id}}" th:text="${channel.name}"></a>
+        </li>
+    </ul>
+</body>
+</html>
