@@ -1,19 +1,14 @@
+<!-- src/main/resources/templates/welcome.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save Username</title>
+    <title>Welcome</title>
 </head>
 <body>
-
 <form action="/setName" method="post">
     <label for="name">Enter your name:</label>
     <input type="text" id="name" name="name" required>
     <button type="submit">Join Chat</button>
 </form>
-<script>
-
-</script>
 </body>
 </html>

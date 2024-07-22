@@ -57,7 +57,6 @@ public class UserController {
         message.setUserId(user.getId());
         message.setUserName(user.getName());
         message.setContent(content);
-
         messagesList.add(message);
     }
 }

@@ -2,21 +2,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Channels</title>
+    <title>Chat</title>
+    <script>
+        function pollMessages() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/messages", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var messages = JSON.parse(xhr.responseText);
+                    var messageBox = document.getElementById("messageBox");
+                    messageBox.innerHTML = "";
+                    messages.forEach(function (message) {
+                        var p = document.createElement("p");
+                        p.textContent = message.userName + ": " + message.content;
+                        messageBox.appendChild(p);
+                    });
+                }
+            };
+            xhr.send();
+        }
+
+        setInterval(pollMessages, 500);
+
+        function sendMessage() {
+            var content = document.getElementById("messageContent").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/sendMessage", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("content=" + encodeURIComponent(content));
+            document.getElementById("messageContent").value = "";
+        }
+    </script>
 </head>
 <body>
-<h1>Channels</h1>
-<ul>
-    <li th:each="channel : ${channels}">
-        <a th:href="@{'/channels/' + ${channel.id}}" th:text="${channel.name}"></a>
-    </li>
-</ul>
-
-<h2>Add a new channel</h2>
-<form action="/addChannel" method="post">
-    <label for="channelName">Channel name:</label>
-    <input type="text" id="channelName" name="channelName" required>
-    <button type="submit">Create Channel</button>
+<div id="messageBox"></div>
+<form onsubmit="sendMessage(); return false;">
+    <textarea id="messageContent" required></textarea>
+    <button type="submit">Send</button>
 </form>
 </body>
 </html>
