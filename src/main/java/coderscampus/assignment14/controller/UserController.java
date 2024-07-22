@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -18,6 +20,8 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private List<Messages> messagesList = new ArrayList<> ();
 
     @GetMapping("/welcome")
     public String welcome(HttpSession session, Model model) {
@@ -25,9 +29,7 @@ public class UserController {
         if (userId == null) {
             return "welcome";
         }
-
-        model.addAttribute("channels", channelRepository.getAllChannels());
-        return "channelList";
+        return "chat";
     }
     @PostMapping("/setName")
     public String setName(@RequestParam String name, HttpSession session){
