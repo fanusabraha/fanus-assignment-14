@@ -2,7 +2,6 @@ package coderscampus.assignment14.controller;
 
 
 import coderscampus.assignment14.channelRepository.ChannelRepository;
-import coderscampus.assignment14.domain.Channel;
 import coderscampus.assignment14.domain.Messages;
 import coderscampus.assignment14.domain.User;
 import coderscampus.assignment14.service.UserService;
@@ -19,8 +18,7 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private ChannelRepository channelRepository;
+
     @GetMapping("/welcome")
     public String welcome(HttpSession session, Model model) {
         String userId = (String) session.getAttribute("userId");
