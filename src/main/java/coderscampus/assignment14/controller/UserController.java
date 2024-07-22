@@ -20,7 +20,6 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
-
     private List<Messages> messagesList = new ArrayList<> ();
 
     @GetMapping(value = {"/welcome","/"})

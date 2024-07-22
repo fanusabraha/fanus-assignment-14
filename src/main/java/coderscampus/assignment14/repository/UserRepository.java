@@ -15,7 +15,7 @@ public class UserRepository {
         users.put(user.getId(),user);
     }
     public Optional<User> getUserById (String id){
-        return Optional.of(users.get(id));
+        return Optional.ofNullable(users.get(id));
     }
     public User findByName (String name){
         return users.values().stream().filter(data->data.getName().equals(name)).findFirst().orElse(null);
