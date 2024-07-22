@@ -3,12 +3,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Welcome</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!sessionStorage.getItem('userId')) {
+                sessionStorage.setItem('userId', 'user-' + Date.now());
+            }
+        });
+    </script>
 </head>
 <body>
 <form action="/setName" method="post">
     <label for="name">Enter your name:</label>
     <input type="text" id="name" name="name" required>
+    <input type="hidden" id="userId" name="userId" value="">
     <button type="submit">Join Chat</button>
 </form>
+<script>
+    document.getElementById('userId').value = sessionStorage.getItem('userId');
+</script>
 </body>
 </html>

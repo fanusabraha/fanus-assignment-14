@@ -19,10 +19,10 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
+
     private List<Messages> messagesList = new ArrayList<> ();
 
-    @GetMapping("/welcome")
+    @GetMapping(value = {"/welcome","/"})
     public String welcome(HttpSession session, Model model) {
         String userId = (String) session.getAttribute("userId");
         if (userId == null) {
