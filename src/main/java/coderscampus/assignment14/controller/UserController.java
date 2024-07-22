@@ -1,7 +1,6 @@
 package coderscampus.assignment14.controller;
 
 
-import coderscampus.assignment14.channelRepository.ChannelRepository;
 import coderscampus.assignment14.domain.Messages;
 import coderscampus.assignment14.domain.User;
 import coderscampus.assignment14.service.UserService;
