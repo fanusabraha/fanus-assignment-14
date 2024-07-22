@@ -51,13 +51,13 @@ public class UserController {
     @ResponseBody
     public void sendMessage(@RequestParam String content, HttpSession session) {
         String userId = (String) session.getAttribute("userId");
-        User user = userRepository.getUserById(userId).orElseThrow();
+        User user = userService.getUserById(userId).orElseThrow();
 
-        Message message = new Message();
+        Messages message = new Messages();
         message.setUserId(user.getId());
         message.setUserName(user.getName());
         message.setContent(content);
 
-        messages.add(message);
+        messagesList.add(message);
     }
 }
