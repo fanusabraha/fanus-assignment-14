@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -31,15 +32,17 @@ public class UserController {
         return "chat";
     }
     @PostMapping("/setName")
-    public String setName(@RequestParam String name, HttpSession session){
-            String userId = UUID.randomUUID().toString();
+    public String setName(@RequestParam String name, @RequestParam String userId, HttpSession session) {
+        Optional<User> existingUser = userService.getUserById(userId);
+        if (existingUser.isEmpty()) {
             User user = new User();
             user.setId(userId);
             user.setName(name);
             userService.addUser(user);
-            session.setAttribute("userId", userId);
-            return "redirect:/";
         }
+        session.setAttribute("userId", userId);
+        return "redirect:/";
+    }
     @GetMapping("/messages")
     @ResponseBody
     public List<Messages> getMessages() {
