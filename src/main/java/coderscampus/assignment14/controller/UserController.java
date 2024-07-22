@@ -41,46 +41,23 @@ public class UserController {
             session.setAttribute("userId", userId);
             return "redirect:/";
         }
-    @PostMapping("/addChannel")
-    public String addChannel(@RequestParam String channelName) {
-        String channelId = UUID.randomUUID().toString();
-        Channel channel = new Channel();
-        channel.setId(channelId);
-        channel.setUsername(channelName);
-        channelRepository.addChannel(channel);
-        return "redirect:/";
-    }
-    @GetMapping("/channels/{channelId}")
-    public String channel(@PathVariable String channelId, HttpSession session, Model model) {
-        String userId = (String) session.getAttribute("userId");
-        if (userId == null) {
-            return "redirect:/";
-        }
-
-        model.addAttribute("channelId", channelId);
-        return "channel";
+    @GetMapping("/messages")
+    @ResponseBody
+    public List<Messages> getMessages() {
+        return messagesList;
     }
 
-    @PostMapping("/channels/{channelId}/sendMessage")
-    public String sendMessage(@PathVariable String channelId, @RequestParam String content, HttpSession session) {
+    @PostMapping("/sendMessage")
+    @ResponseBody
+    public void sendMessage(@RequestParam String content, HttpSession session) {
         String userId = (String) session.getAttribute("userId");
-        User user = userService.getUserById(userId).orElseThrow();
+        User user = userRepository.getUserById(userId).orElseThrow();
 
-        Messages message = new Messages();
+        Message message = new Message();
         message.setUserId(user.getId());
         message.setUserName(user.getName());
         message.setContent(content);
 
-        Channel channel = channelRepository.getChannelById(channelId).orElseThrow();
-        channel.getMessages().add(message);
-
-        return "redirect:/channels/" + channelId;
-    }
-
-    @GetMapping("/channels/{channelId}/messages")
-    @ResponseBody
-    public Iterable<Messages> getMessages(@PathVariable String channelId) {
-        Channel channel = channelRepository.getChannelById(channelId).orElseThrow();
-        return channel.getMessages();
+        messages.add(message);
     }
 }
