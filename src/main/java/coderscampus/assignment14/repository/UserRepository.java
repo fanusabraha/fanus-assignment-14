@@ -11,7 +11,7 @@ import java.util.UUID;
 public class UserRepository {
     HashMap<String, User> users = new HashMap<>();
     public void addUser (User user){
-        user.setId(UUID.randomUUID().toString());
+        //user.setId(UUID.randomUUID().toString());
         users.put(user.getId(),user);
     }
     public Optional<User> getUserById (String id){

@@ -15,7 +15,6 @@ public class UserService {
          userRepository.addUser(user);
     }
     public Optional<User> getUserById(String id){
-
         return userRepository.getUserById(id);
     }
     public User findByName(String name){

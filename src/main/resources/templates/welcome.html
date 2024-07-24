@@ -1,13 +1,14 @@
-<!-- src/main/resources/templates/welcome.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Welcome</title>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Generate a unique userId for each tab if it doesn't exist
             if (!sessionStorage.getItem('userId')) {
-                sessionStorage.setItem('userId', 'user-' + Date.now());
+                sessionStorage.setItem('userId', 'user-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9));
             }
+            document.getElementById('userId').value = sessionStorage.getItem('userId');
         });
     </script>
 </head>
@@ -18,8 +19,5 @@
     <input type="hidden" id="userId" name="userId" value="">
     <button type="submit">Join Chat</button>
 </form>
-<script>
-    document.getElementById('userId').value = sessionStorage.getItem('userId');
-</script>
 </body>
 </html>
