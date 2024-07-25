@@ -27,13 +27,14 @@ public class UserController {
 
         String userId = (String) session.getAttribute("userId");
         String userName = (String) session.getAttribute("userName");
+        System.out.println(userName);
 
-        //Optional<User> user = userService.getUserById(userId);
         if (userId == null || userService.getUserById(userId).isEmpty()) {
             return "welcome";
         }
             return "chat";
     }
+
     @PostMapping("/setName")
     public String setName(@RequestParam String name, @RequestParam String userId, HttpSession session) {
         if (userService.getUserById(userId).isEmpty()) {

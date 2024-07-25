@@ -28,7 +28,7 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/sendMessage", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("content=" + encodeURIComponent(content) + "&userId=" + encodeURIComponent(localStorage.getItem('userId')));
+            xhr.send("content=" + encodeURIComponent(content));
             document.getElementById("messageContent").value = "";
         }
     </script>
