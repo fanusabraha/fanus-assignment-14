@@ -32,16 +32,15 @@ public class UserController {
     }
     @GetMapping("welcome/channels")
     public String getChannelLink(HttpSession session){
-        String userId = (String) session.getAttribute("userId");
-        String userName = (String) session.getAttribute("userName");
-        if (!userName.isEmpty() && !userService.getUserById(userId).isEmpty()){
-            return "chat";
-        }
+//        String userId = (String) session.getAttribute("userId");
+//        String userName = (String) session.getAttribute("userName");
+//        if (userService.findByName(userName) != null && !userService.getUserById(userId).isEmpty()){
+//            return "chat";
+//        }
         return "channel";
     }
     @GetMapping("/channels/1")
-    public String getChannelPage(){
-        return "chat";
+    public String getChannelPage(){ return "chat";
     }
     @PostMapping("/setName")
     public String setName(@RequestParam String name, @RequestParam String userId, HttpSession session) {
