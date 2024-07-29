@@ -27,14 +27,22 @@ public class UserController {
 
         String userId = (String) session.getAttribute("userId");
         String userName = (String) session.getAttribute("userName");
-        System.out.println(userName);
-
-        if (userId == null || userService.getUserById(userId).isEmpty()) {
+        //if (userId == null || userService.getUserById(userId).isEmpty()) {  return "welcome";}
             return "welcome";
-        }
-            return "chat";
     }
-
+    @GetMapping("welcome/channels")
+    public String getChannelLink(HttpSession session){
+        String userId = (String) session.getAttribute("userId");
+        String userName = (String) session.getAttribute("userName");
+        if (!userName.isEmpty() && !userService.getUserById(userId).isEmpty()){
+            return "chat";
+        }
+        return "channel";
+    }
+    @GetMapping("/channels/1")
+    public String getChannelPage(){
+        return "chat";
+    }
     @PostMapping("/setName")
     public String setName(@RequestParam String name, @RequestParam String userId, HttpSession session) {
         if (userService.getUserById(userId).isEmpty()) {
@@ -45,7 +53,7 @@ public class UserController {
             session.setAttribute("userName", name);
         }
         session.setAttribute("userId", userId);
-        return "redirect:/";
+        return "redirect:/welcome/channels";
     }
     @GetMapping("/messages")
     @ResponseBody
