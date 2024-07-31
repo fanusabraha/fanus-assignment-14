@@ -4,12 +4,18 @@
     <title>Welcome</title>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+         // Clear sessionStorage on welcome page load to start fresh
+            sessionStorage.clear();
             // Generate a unique userId for each tab if it doesn't exist
             if (!sessionStorage.getItem('userId')) {
                 sessionStorage.setItem('userId', 'user-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9));
             }
             document.getElementById('userId').value = sessionStorage.getItem('userId');
         });
+         function setName() {
+            var name = document.getElementById('name').value;
+            sessionStorage.setItem('userName', name);
+        }
     </script>
 </head>
 <body>

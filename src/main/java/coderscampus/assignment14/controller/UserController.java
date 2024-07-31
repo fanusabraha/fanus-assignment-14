@@ -24,23 +24,23 @@ public class UserController {
 
     @GetMapping(value = {"/welcome","/"})
     public String welcome(HttpSession session, Model model) {
-
-        String userId = (String) session.getAttribute("userId");
-        String userName = (String) session.getAttribute("userName");
-        //if (userId == null || userService.getUserById(userId).isEmpty()) {  return "welcome";}
             return "welcome";
     }
+
     @GetMapping("welcome/channels")
     public String getChannelLink(HttpSession session){
-//        String userId = (String) session.getAttribute("userId");
-//        String userName = (String) session.getAttribute("userName");
-//        if (userService.findByName(userName) != null && !userService.getUserById(userId).isEmpty()){
-//            return "chat";
-//        }
         return "channel";
     }
+
     @GetMapping("/channels/1")
-    public String getChannelPage(){ return "chat";
+    public String getChannelPage(HttpSession session){
+        String userId = (String) session.getAttribute("userId");
+        String userName = (String) session.getAttribute("userName");
+
+        if (userId == null || userId.isEmpty()){
+           return "redirect:/welcome";
+        }
+        return "chat";
     }
     @PostMapping("/setName")
     public String setName(@RequestParam String name, @RequestParam String userId, HttpSession session) {
