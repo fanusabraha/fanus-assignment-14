@@ -21,7 +21,10 @@ public class UserController {
     @Autowired
     private UserService userService;
     private List<Messages> messagesList = new ArrayList<> ();
-
+    @GetMapping("/trying")
+    public String tryingFucntion(Model model){
+    return "try";
+    }
     @GetMapping(value = {"/welcome","/"})
     public String welcome(HttpSession session, Model model) {
             return "welcome";
@@ -72,17 +75,4 @@ public class UserController {
         message.setContent(content);
         messagesList.add(message);
     }
-
-//    private static long extractTimestamp(String userId) {
-//        // Regular expression to match the timestamp part of the userId
-//        Pattern pattern = Pattern.compile("user-(\\d+)-");
-//        Matcher matcher = pattern.matcher(userId);
-//
-//        if (matcher.find()) {
-//            // Group 1 contains the timestamp
-//            return Long.parseLong(matcher.group(1));
-//        } else {
-//            throw new IllegalArgumentException("Timestamp not found in userId");
-//        }
-//    }
 }
